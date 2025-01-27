@@ -1,0 +1,149 @@
+
+
+h1, h2, h3, h4, nav a {
+    font-family: "Yeseva One", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.portfolio-item .links a:hover, a:hover {
+    color: #5289cc;
+}
+
+.inner {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/****** nav *****/
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 2rem;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+}
+
+nav a {
+    text-decoration: none;
+    color: #0064ff;
+}
+
+p, .techs, .portfolio .links, footer a {
+    font-family: "Josefin Sans", serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+}
+
+/***** hero *****/
+.hero {
+    /* background-color: #F0F6FF; */
+    padding: 10rem 0;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 46px;
+}
+
+/***** portfolio section ******/
+.portfolio-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+
+.portfolio {
+padding: 5rem 0;
+background-color: #F0F6FF;
+}
+
+.portfolio h2, .portfolio h3 {
+    text-align: center;
+}
+
+.portfolio h2, footer h2 {
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    font-size: medium;
+    text-align: center;
+}
+
+.portfolio-item {
+    background-color: white;
+    text-align: center;
+    min-height: 500px;
+    border-radius: 15px 15px 0 0;
+    overflow: hidden;
+}
+
+.portfolio-item .profile-blurb {
+    padding: 30px;
+}
+
+.techs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.techs span {
+    font-size: 9px;
+    border: 1px solid rgba(128, 128, 128, 0.37);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.portfolio .links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    border-top: 1px solid rgba(128, 128, 128, 0.3);
+    padding: 30px 0;
+}
+
+.portfolio a {
+    text-decoration: none;
+    color: #0064ff;
+    font-family: "Yeseva One", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/*** footer ***/
+footer {
+    padding: 10rem 0;
+}
+
+footer .contact-deets {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+footer a, footer i {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+footer a {
+    font-weight: bold;
+    color: #5289CC;
+}
+
+
+/*** media queries ****/
+
+@media screen and (max-width: 700px) {
+    .portfolio-row {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
