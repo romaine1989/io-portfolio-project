@@ -1,0 +1,23 @@
+{
+    "projects": [
+        {
+            "title": "My amazing project",
+            "description": "it's so good",
+            "image": "images/project_1.png",
+            "alt": "some alt text",
+            "link": "https://github.com/wowie"
+        },
+        {
+            "title": "My amazing project",
+            "description": "it's so good",
+            "image": "project_2.png",
+            "link": "https://github.com/zowie"
+        },
+        {
+            "title": "My amazing project",
+            "description": "it's so good",
+            "image": "project_3.png",
+            "link": "https://github.com/kapowie"
+        }
+    ]
+}

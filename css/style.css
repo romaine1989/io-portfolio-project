@@ -10,10 +10,14 @@ h1, h2, h3, h4, nav a {
     color: #5289cc;
 }
 
-.inner {
+section {
     width: 100%;
+}
+
+.inner {
     max-width: 900px;
     margin: 0 auto;
+    padding: 0 4rem;
 }
 
 /****** nav *****/
@@ -39,7 +43,6 @@ p, .techs, .portfolio .links, footer a {
 
 /***** hero *****/
 .hero {
-    /* background-color: #F0F6FF; */
     padding: 10rem 0;
     text-align: center;
 }
@@ -116,6 +119,62 @@ background-color: #F0F6FF;
     border-radius: 5px;
 }
 
+/******* carousel *******/
+.carousel-container {
+    width: 830px;  /* Fits 2 items (400px) + gap (30px) */
+    max-width: 830px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 15px 15px 0 0;
+    margin: auto;
+}
+
+.carousel {
+    display: flex;
+    transition: transform 0.3s ease-out;
+    cursor: grab;
+    width: max-content;
+    will-change: transform;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: pan-y pinch-zoom;
+    gap: 30px;  /* Gap between items */
+}
+
+.carousel:active {
+    cursor: grabbing;
+}
+
+.carousel .portfolio-item {
+    width: 400px;
+    flex-shrink: 0;
+    border-radius: 15px 15px 0 0;
+    overflow: hidden;
+    background: white;
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 13px 18px;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.arrow-left {
+    left: 10px;
+}
+
+.arrow-right {
+    right: 10px;
+}
+
 /*** footer ***/
 footer {
     padding: 10rem 0;
@@ -139,11 +198,31 @@ footer a {
 }
 
 
-/*** media queries ****/
-
 @media screen and (max-width: 700px) {
-    .portfolio-row {
-        display: grid;
-        grid-template-columns: 1fr;
+    /* General mobile styles */
+    .inner {
+        padding: 0 1.5rem;
+    }
+
+    .portfolio {
+        padding: 3rem 0;
+    }
+
+    .carousel-container {
+        width: 100%;
+        max-width: 400px;  /* Show only one item on mobile */
+    }
+    
+    .carousel {
+        gap: 0;  /* Remove gap on mobile */
+    }
+    
+    .carousel .portfolio-item {
+        width: 400px;
+    }
+
+    .arrow {
+        padding: 10px 15px;
+        font-size: 16px;
     }
 }
