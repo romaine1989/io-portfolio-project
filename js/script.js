@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentTranslate = 0;
     let prevTranslate = 0;
     let animationID = 0;
+    let isHorizontalScroll = false;
     
     const ITEM_WIDTH = 400;
     const DESKTOP_GAP = 30;
@@ -60,31 +61,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Wheel event handler for trackpad
     function handleWheel(e) {
-        e.preventDefault();
+        // Check if it's primarily a horizontal scroll
+        const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
         
-        // Determine scroll direction and amount
-        const delta = e.deltaX || e.deltaY;
-        if (Math.abs(delta) < 5) return; // Ignore tiny movements
+        if (isHorizontal) {
+            e.preventDefault();
+            
+            const delta = e.deltaX;
+            if (Math.abs(delta) < 5) return; // Ignore tiny movements
 
-        // Add to the scroll accumulator
-        scrollLeft += delta;
-        
-        // Threshold for changing slides
-        const threshold = getItemWidth() / 3;
+            scrollLeft += delta;
+            const threshold = getItemWidth() / 3;
 
-        if (Math.abs(scrollLeft) > threshold) {
-            if (scrollLeft > 0 && currentIndex < getMaxIndex()) {
-                currentIndex++;
-                scrollLeft = 0;
-            } else if (scrollLeft < 0 && currentIndex > 0) {
-                currentIndex--;
-                scrollLeft = 0;
+            if (Math.abs(scrollLeft) > threshold) {
+                if (scrollLeft > 0 && currentIndex < getMaxIndex()) {
+                    currentIndex++;
+                    scrollLeft = 0;
+                } else if (scrollLeft < 0 && currentIndex > 0) {
+                    currentIndex--;
+                    scrollLeft = 0;
+                }
+                setPositionByIndex();
             }
-            setPositionByIndex();
         }
+        // If it's vertical scroll, let it pass through naturally
     }
 
-    // Touch and mouse event handlers
     function handleStart(e) {
         isDragging = true;
         startX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
@@ -97,10 +99,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleMove(e) {
         if (!isDragging) return;
-        e.preventDefault();
-        
+
         const currentX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
         const diff = currentX - startX;
+
+        // Only prevent default if there's significant horizontal movement
+        if (Math.abs(diff) > 5) {
+            e.preventDefault();
+            isHorizontalScroll = true;
+        }
+
         currentTranslate = prevTranslate + diff;
 
         // Add resistance at edges
@@ -119,7 +127,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleEnd() {
+        if (!isDragging) return;
+        
         isDragging = false;
+        isHorizontalScroll = false;
         const itemWidth = getItemWidth();
         const movedBy = currentTranslate - prevTranslate;
         
@@ -179,6 +190,58 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 250);
     });
 
-    // Initialize
+    // `Initialize
     setPositionByIndex(false);
 });
+
+const target = document.querySelector('.portfolio-row')
+
+/** 
+fetch gets data from URL. and this will always be asynchronous 
+**/
+fetch('information.json')
+
+    /** this then is chained to the fetch before with the . and what it does is
+    catches asynchronous data (object) from the thing it's chained to (fetch)
+    .json is to turn the json format recieved from the fetch (amongst the collection of data in the in fetch) into 
+    a JS object that we can use synchronously and the fat arrow
+    is another way of 'returning' so we can use this object in another then if necessary
+    **/
+    .then((response) => response.json())
+
+    /*
+    this then, is chained to the one before with the . and outlines a parameter 
+    called data which stores the value object returned from t eh previous then
+    */
+    .then(data => {// data represents the object got from the first then
+        console.log(data)
+        data.projects.forEach((portfolioItem) => {
+
+            let list = document.createElement('div');
+            list.innerHTML = `
+                <div class="portfolio-item">
+                        <img src="img/example2.jpg" alt="amazing-project" width="100%">
+                        <div class="profile-blurb">
+                            <h3>${portfolioItem.title}</h2>
+                            <p>
+                                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+                            </p>
+
+                            <div class="techs">
+                                <span>CSS</span>
+                                <span>HTML</span>
+                                <span>JavaScript</span>
+                                <span>VS Code</span>
+                            </div>
+                        </div>
+
+                        <div class="links">
+                            <a href="#">Live Project</a>
+                            <a href="#">Git Repo</a>
+                        </div> 
+                    </div>
+            `;
+            target.appendChild(list)
+        });
+
+    });
